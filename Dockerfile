@@ -4,7 +4,6 @@ WORKDIR /var
 
 COPY dist/ dist/
 COPY server/ server/
-copy server/node_modules  server/node_modules
 
 WORKDIR /var/server
 
