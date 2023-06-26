@@ -1,0 +1,68 @@
+name: Bygg og deploy
+
+on: [push]
+
+env:
+    IMAGE: ghcr.io/${{ github.repository }}/finn-stilling-inngang:${{ github.sha }}
+
+jobs:
+    bygg-og-push-docker-image:
+        name: Bygg og push
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+                  cache: 'npm'
+                  cache-dependency-path: |
+                      package-lock.json
+                      server/package-lock.json
+            - name: Installer avhengigheter
+              run: npm ci
+            - name: Bygg applikasjon
+              run: npm run build
+            - name: Installer avhengigheter for server
+              run: cd server && npm ci
+            - name: Bygg server
+              run: cd server && npm run build
+            - name: Logg inn til Github
+              uses: docker/login-action@v2
+              with:
+                  registry: ghcr.io
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+            - name: Bygg og publiser Docker-image
+              uses: docker/build-push-action@v3
+              with:
+                  context: .
+                  push: true
+                  tags: ${{ env.IMAGE }}
+
+    deploy-til-dev:
+        name: Deploy til dev-gcp
+        needs: bygg-og-push-docker-image
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/branch'
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: nais/deploy/actions/deploy@v1
+              env:
+                  APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+                  CLUSTER: dev-gcp
+                  RESOURCE: deploy/nais-dev.yaml
+                  VARS: deploy/dev-gcp.json
+
+    deploy-to-prod:
+        name: Deploy til prod-gcp
+        needs: deploy-til-dev
+        if: github.ref == 'refs/heads/master'
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: nais/deploy/actions/deploy@v1
+              env:
+                  APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+                  CLUSTER: prod-gcp
+                  RESOURCE: deploy/nais-prod.yaml
+                  VARS: deploy/prod-gcp.json
