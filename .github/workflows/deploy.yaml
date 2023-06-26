@@ -24,8 +24,6 @@ jobs:
               run: npm run build
             - name: Installer avhengigheter for server
               run: cd server && npm ci
-            - name: Bygg server
-              run: cd server && npm run build
             - name: Logg inn til Github
               uses: docker/login-action@v2
               with:
