@@ -5,7 +5,8 @@
     "scripts": {
         "prepare": "husky install",
         "start": "vite",
-        "build": "cross-env VITE_EXPORT=true vite build"
+        "build": "cross-env VITE_EXPORT=true vite build",
+        "preview": "vite preview"
     },
     "dependencies": {
         "@navikt/ds-css": "^4.4.0",

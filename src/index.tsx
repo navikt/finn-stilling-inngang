@@ -1,14 +1,14 @@
 import { createRoot } from 'react-dom/client';
-import '@navikt/ds-css';
-import { BodyShort } from '@navikt/ds-react';
 import Navspa from '@navikt/navspa';
+import App from './App';
+import './index.css';
 
-const App = () => <BodyShort>Heihei</BodyShort>;
+const elementId = 'finn-stilling-inngang';
 
 if (import.meta.env.VITE_EXPORT) {
-    Navspa.eksporter('finn-stilling-inngang', App);
+    Navspa.eksporter(elementId, App);
 } else {
-    const utviklingsapp = document.getElementById('finn-stilling-inngang');
+    const utviklingsapp = document.getElementById(elementId);
     const root = createRoot(utviklingsapp!);
 
     root.render(<App />);
