@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import Navspa from '@navikt/navspa';
-import App from './App';
+import App from './app/App';
 import './index.css';
 
 const elementId = 'finn-stilling-inngang';
