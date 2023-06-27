@@ -1,7 +1,7 @@
 import { BodyLong, BodyShort, Heading, Label } from '@navikt/ds-react';
 import { CheckmarkCircleIcon } from '@navikt/aksel-icons';
-import { ReactComponent as Illustrasjon } from './illustrasjon.svg';
 import LinkButton from '../link-button/LinkButton';
+import Illustrasjon from '../illustrasjon/Illustrasjon';
 import css from './App.module.css';
 
 type Props = {
@@ -57,7 +57,7 @@ const App = ({ fnr }: Props) => {
                     <Label as="p">Tusen takk for hjelpen!</Label>
                 </article>
                 <div className={css.hoyre}>
-                    <Illustrasjon aria-hidden />
+                    <Illustrasjon />
                 </div>
             </div>
         </div>

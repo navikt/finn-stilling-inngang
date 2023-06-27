@@ -65,11 +65,6 @@
 @media (min-width: 1000px) {
     .hoyre {
         display: unset;
-        background-color: var(--a-blue-100);
-        border-radius: var(--a-border-radius-xlarge);
-        padding-right: var(--a-spacing-4);
-        padding-top: var(--a-spacing-4);
-        aspect-ratio: 1;
     }
 
     .venstre {
