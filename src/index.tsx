@@ -11,5 +11,5 @@ if (import.meta.env.VITE_EXPORT) {
     const utviklingsapp = document.getElementById(elementId);
     const root = createRoot(utviklingsapp!);
 
-    root.render(<App />);
+    root.render(<App fnr="123" />);
 }

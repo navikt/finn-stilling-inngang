@@ -4,11 +4,15 @@ import { ReactComponent as Illustrasjon } from './illustrasjon.svg';
 import LinkButton from '../link-button/LinkButton';
 import css from './App.module.css';
 
-const App = () => {
+type Props = {
+    fnr: string;
+};
+
+const App = ({ fnr }: Props) => {
     return (
         <div className={css.app}>
             <div className={css.boks}>
-                <div className={css.venstre}>
+                <article className={css.venstre}>
                     <Heading spacing level="2" size="large">
                         Finn stillinger til brukeren din
                     </Heading>
@@ -29,7 +33,7 @@ const App = () => {
                     </BodyLong>
 
                     <div className={css.lenker}>
-                        <LinkButton href="#">Se stillingene</LinkButton>
+                        <LinkButton href={hentLenkeTilFinnStilling(fnr)}>Se stillingene</LinkButton>
                         <LinkButton variant="secondary" href="#">
                             Gi oss tilbakemelding
                         </LinkButton>
@@ -51,7 +55,7 @@ const App = () => {
                     </ul>
 
                     <Label as="p">Tusen takk for hjelpen!</Label>
-                </div>
+                </article>
                 <div className={css.hoyre}>
                     <Illustrasjon aria-hidden />
                 </div>
@@ -59,5 +63,13 @@ const App = () => {
         </div>
     );
 };
+
+function hentLenkeTilFinnStilling(fnr: string) {
+    const rekrutteringsbistandUrl = window.location.href.includes('dev.nav.no')
+        ? 'https://rekrutteringsbistand.intern.dev.nav.no'
+        : 'https://rekrutteringsbistand.intern.nav.no';
+
+    return `${rekrutteringsbistandUrl}/stillingssok/${fnr}?kandidatkriterier`;
+}
 
 export default App;

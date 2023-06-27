@@ -14,7 +14,7 @@ const LinkButton = ({ href, children, variant = 'primary' }: Props) => {
         css.linkButton + ' navds-button navds-button-medium ' + `navds-button--${variant}`;
 
     return (
-        <a href={href} className={className}>
+        <a target="_blank" href={href} className={className}>
             <Label as="span">{children}</Label>
             <ExternalLinkIcon />
         </a>
