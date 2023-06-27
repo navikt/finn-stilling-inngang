@@ -34,7 +34,10 @@ const App = ({ fnr }: Props) => {
 
                     <div className={css.lenker}>
                         <LinkButton href={hentLenkeTilFinnStilling(fnr)}>Se stillingene</LinkButton>
-                        <LinkButton variant="secondary" href="#">
+                        <LinkButton
+                            variant="secondary"
+                            href="https://forms.office.com/e/yY5pEPgBpa"
+                        >
                             Gi oss tilbakemelding
                         </LinkButton>
                     </div>
