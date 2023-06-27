@@ -15,8 +15,19 @@ const cacheForever = {
     maxAge: 365000000,
 };
 
+const configureCors = (req, res, next) => {
+    const { origin } = req.headers;
+
+    if (origin?.includes('intern.nav.no') || origin?.includes('intern.dev.nav.no')) {
+        res.header('Access-Control-Allow-Origin', origin);
+    }
+
+    next();
+};
+
 const startServer = () => {
     app.use(compression());
+    app.use('/*', configureCors);
 
     app.use('/assets', express.static(`${buildPath}/assets`, cacheForever));
     app.use('/asset-manifest.json', express.static(`${buildPath}/asset-manifest.json`));
