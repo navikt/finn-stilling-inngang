@@ -14,12 +14,14 @@
         "@navikt/ds-react": "^4.4.0",
         "@navikt/navspa": "^6.0.1",
         "@vitejs/plugin-react": "^4.0.1",
+        "amplitude-js": "^8.21.9",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "vite": "^4.3.9",
         "vite-plugin-svgr": "^3.2.0"
     },
     "devDependencies": {
+        "@types/amplitude-js": "^8.16.2",
         "@types/react": "^18.2.14",
         "@types/react-dom": "^18.2.6",
         "cross-env": "^7.0.3",

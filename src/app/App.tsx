@@ -3,12 +3,18 @@ import { CheckmarkCircleIcon } from '@navikt/aksel-icons';
 import LinkButton from '../link-button/LinkButton';
 import Illustrasjon from '../illustrasjon/Illustrasjon';
 import css from './App.module.css';
+import { useEffect } from 'react';
+import { sendEvent } from '../amplitude';
 
 type Props = {
     fnr: string;
 };
 
 const App = ({ fnr }: Props) => {
+    useEffect(() => {
+        sendEvent('aktivitetsplan-finn_stilling_fane-vis');
+    }, []);
+
     return (
         <div className={css.app}>
             <div className={css.boks}>

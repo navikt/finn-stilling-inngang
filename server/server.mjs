@@ -27,10 +27,13 @@ const configureCors = (req, res, next) => {
 
 const startServer = () => {
     app.use(compression());
-    app.use('/*', configureCors);
 
     app.use('/assets', express.static(`${buildPath}/assets`, cacheForever));
-    app.use('/asset-manifest.json', express.static(`${buildPath}/asset-manifest.json`));
+    app.use(
+        '/asset-manifest.json',
+        configureCors,
+        express.static(`${buildPath}/asset-manifest.json`)
+    );
 
     app.get('/internal/isAlive', (_, res) => res.sendStatus(200));
     app.get('/internal/isReady', (_, res) => res.sendStatus(200));
