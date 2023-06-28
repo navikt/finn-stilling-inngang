@@ -1,10 +1,10 @@
-import { AmplitudeClient, getInstance } from 'amplitude-js';
+import * as amplitude from 'amplitude-js';
 
 const apiKey = window.location.href.includes('intern.dev.nav.no')
     ? '6ed1f00aabc6ced4fd6fcb7fcdc01b30'
     : 'a8243d37808422b4c768d31c88a22ef4';
 
-const client: AmplitudeClient = getInstance();
+const client: amplitude.AmplitudeClient = amplitude.getInstance();
 
 if (import.meta.env.PROD) {
     client.init(apiKey, '', {
