@@ -25,16 +25,14 @@ const App = ({ fnr }: Props) => {
 
                     <BodyLong spacing>
                         Vi har flere stillinger fra arbeidsgivere som ønsker å ansette folk fra NAV.
-                        Kanskje passer noen av disse stillingene til folkene du veileder?
+                        Kanskje passer noen til folkene du veileder?
                     </BodyLong>
-
                     <BodyLong spacing>
-                        Vi utforsker om det er interessant for deg å få vite om det, og hvordan vi
-                        kan lage det på riktig måte. Da trenger vi din hjelp.
+                        Vi utforsker om det er interessant for deg å få vite om disse. Kanskje du
+                        også vil anbefale brukeren din til jobben?
                     </BodyLong>
-
                     <BodyLong spacing>
-                        Test ut hvordan det kan fungere ved å trykke på knappen under. Gi oss gjerne
+                        Du kan teste løsningen ved å trykke på knappen under. Gi oss gjerne
                         tilbakemeldinger hvis du har lyst. Det setter vi pris på.
                     </BodyLong>
 
