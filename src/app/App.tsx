@@ -47,17 +47,17 @@ const App = ({ fnr }: Props) => {
                     </div>
 
                     <BodyLong>
-                        Tilbakemeldingene bruker vi til å vurdere hva vi gjør videre
+                        Tilbakemeldingene bruker vi til å vurdere hva vi gjør videre.
                     </BodyLong>
 
                     <ul className={css.punktliste}>
                         <BodyShort as="li">
                             <CheckmarkCircleIcon />
-                            Det tar bare 2 minutter å svare
+                            Det tar bare 2-3 minutter å svare.
                         </BodyShort>
                         <BodyShort as="li">
                             <CheckmarkCircleIcon />
-                            Er helt anonymt, selvfølgelig
+                            Er helt anonymt, selvfølgelig.
                         </BodyShort>
                     </ul>
 
