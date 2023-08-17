@@ -1,10 +1,10 @@
-import { BodyLong, BodyShort, Heading, Label } from '@navikt/ds-react';
 import { CheckmarkCircleIcon } from '@navikt/aksel-icons';
-import LinkButton from '../link-button/LinkButton';
-import Illustrasjon from '../illustrasjon/Illustrasjon';
-import css from './App.module.css';
+import { BodyLong, BodyShort, Heading, Label } from '@navikt/ds-react';
 import { useEffect } from 'react';
 import { sendEvent } from '../amplitude';
+import Illustrasjon from '../illustrasjon/Illustrasjon';
+import LinkButton from '../link-button/LinkButton';
+import css from './App.module.css';
 
 type Props = {
     fnr: string;
@@ -72,11 +72,11 @@ const App = ({ fnr }: Props) => {
 };
 
 function hentLenkeTilFinnStilling(fnr: string) {
-    const rekrutteringsbistandUrl = window.location.href.includes('dev.nav.no')
-        ? 'https://rekrutteringsbistand.intern.dev.nav.no'
-        : 'https://rekrutteringsbistand.intern.nav.no';
-
-    return `${rekrutteringsbistandUrl}/stillingssok/${fnr}?kandidatkriterier`;
+    if (window.location.href.includes('dev.nav.no')) {
+        return `https://rekrutteringsbistand.intern.dev.nav.no/stillingssok/personbruker`;
+    } else {
+        return `https://rekrutteringsbistand.intern.dev.nav.no/stillingssok/${fnr}?kandidatkriterier`;
+    }
 }
 
 export default App;
