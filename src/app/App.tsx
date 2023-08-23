@@ -75,7 +75,7 @@ function hentLenkeTilFinnStilling(fnr: string) {
     if (window.location.href.includes('dev.nav.no')) {
         return `https://rekrutteringsbistand.intern.dev.nav.no/stillingssok/personbruker`;
     } else {
-        return `https://rekrutteringsbistand.intern.nav.no/stillingssok/${fnr}?kandidatkriterier`;
+        return `https://rekrutteringsbistand.intern.nav.no/stillingssok/personbruker`;
     }
 }
 
