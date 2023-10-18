@@ -1,1 +1,5 @@
-{ "ingress": "https://finn-stilling-inngang.intern.dev.nav.no" }
+{
+    "ingress": "https://finn-stilling-inngang.intern.dev.nav.no",
+    "minReplicas": 1,
+    "requestedCpu": "10m"
+}
