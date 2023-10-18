@@ -17,3 +17,9 @@ spec:
     readiness:
         initialDelay: 5
         path: /internal/isReady
+    replicas:
+        min: {{ minReplicas }}
+    resources:
+        requests:
+            cpu: {{ requestedCpu }}
+            memory: 128Mi
