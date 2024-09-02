@@ -1,5 +1,4 @@
-import { CheckmarkCircleIcon } from '@navikt/aksel-icons';
-import { BodyLong, BodyShort, Heading, Label } from '@navikt/ds-react';
+import { BodyLong, Heading } from '@navikt/ds-react';
 import { useEffect } from 'react';
 import { sendEvent } from '../amplitude';
 import Illustrasjon from '../illustrasjon/Illustrasjon';
@@ -18,8 +17,8 @@ const App = ({ fnr }: Props) => {
     return (
         <div className={css.app}>
             <div className={css.boks}>
-                <article className={css.venstre}>
-                    <Heading spacing level="2" size="large">
+                <article className={css.artikkel}>
+                    <Heading spacing level='2' size='large'>
                         Finn stillinger til brukeren din
                     </Heading>
 
@@ -27,45 +26,14 @@ const App = ({ fnr }: Props) => {
                         Vi har flere stillinger fra arbeidsgivere som ønsker å ansette folk fra NAV.
                         Kanskje passer noen til folkene du veileder?
                     </BodyLong>
-                    <BodyLong spacing>
-                        Vi utforsker om det er interessant for deg å få vite om disse. Kanskje du
-                        også vil anbefale brukeren din til jobben?
-                    </BodyLong>
-                    <BodyLong spacing>
-                        Du kan teste løsningen ved å trykke på knappen under. Gi oss gjerne
-                        tilbakemeldinger hvis du har lyst. Det setter vi pris på.
-                    </BodyLong>
 
-                    <div className={css.lenker}>
+                    <div>
                         <LinkButton href={hentLenkeTilFinnStilling(fnr)}>Se stillingene</LinkButton>
-                        <LinkButton
-                            variant="secondary"
-                            href="https://forms.office.com/e/yY5pEPgBpa"
-                        >
-                            Gi oss tilbakemelding
-                        </LinkButton>
                     </div>
-
-                    <BodyLong>
-                        Tilbakemeldingene bruker vi til å vurdere hva vi gjør videre.
-                    </BodyLong>
-
-                    <ul className={css.punktliste}>
-                        <BodyShort as="li">
-                            <CheckmarkCircleIcon />
-                            Det tar bare 2-3 minutter å svare.
-                        </BodyShort>
-                        <BodyShort as="li">
-                            <CheckmarkCircleIcon />
-                            Er helt anonymt, selvfølgelig.
-                        </BodyShort>
-                    </ul>
-
-                    <Label as="p">Tusen takk for hjelpen!</Label>
+                    <div>
+                        <Illustrasjon />
+                    </div>
                 </article>
-                <div className={css.hoyre}>
-                    <Illustrasjon />
-                </div>
             </div>
         </div>
     );
