@@ -12,24 +12,24 @@
         "@navikt/aksel-icons": "^5.18.3",
         "@navikt/ds-css": "^5.18.3",
         "@navikt/ds-react": "^5.18.3",
-        "@navikt/navspa": "^6.0.1",
-        "@vitejs/plugin-react": "^4.2.1",
+        "@navikt/navspa": "^6.2.0",
+        "@vitejs/plugin-react": "^4.3.4",
         "amplitude-js": "^8.21.9",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
         "vite": "5.1.2",
-        "vite-plugin-svgr": "^4.2.0"
+        "vite-plugin-svgr": "^4.3.0"
     },
     "devDependencies": {
         "@types/amplitude-js": "^8.16.5",
-        "@types/react": "^18.2.56",
-        "@types/react-dom": "^18.2.19",
+        "@types/react": "^18.3.18",
+        "@types/react-dom": "^18.3.5",
         "cross-env": "^7.0.3",
         "eslint-config-prettier": "^9.1.0",
-        "husky": "^9.0.11",
-        "prettier": "^3.2.5",
+        "husky": "^9.1.7",
+        "prettier": "^3.4.2",
         "pretty-quick": "^4.0.0",
-        "typescript": "^5.3.3"
+        "typescript": "^5.7.2"
     },
     "eslintConfig": {
         "extends": [
