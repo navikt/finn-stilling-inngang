@@ -41,9 +41,9 @@ const App = ({ fnr }: Props) => {
 
 function hentLenkeTilFinnStilling(fnr: string) {
     if (window.location.href.includes('dev.nav.no')) {
-        return `https://rekrutteringsbistand.intern.dev.nav.no/stillingssok/personbruker`;
+        return `https://rekrutteringsbistand-frontend.intern.dev.nav.no/personbruker`;
     } else {
-        return `https://rekrutteringsbistand.intern.nav.no/stillingssok/personbruker`;
+        return `https://rekrutteringsbistand-frontend.intern.nav.no/personbruker`;
     }
 }
 
