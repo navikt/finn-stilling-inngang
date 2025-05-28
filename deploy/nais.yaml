@@ -1,25 +1,31 @@
 apiVersion: nais.io/v1alpha1
 kind: 'Application'
 metadata:
-    name: finn-stilling-inngang
-    namespace: toi
-    labels:
-        team: toi
+  name: finn-stilling-inngang
+  namespace: toi
+  labels:
+    team: toi
 spec:
-    # prettier-ignore
-    image: {{ image }}
-    port: 3000
-    ingresses:
-        - {{ ingress }}
-    liveness:
-        initialDelay: 5
-        path: /internal/isAlive
-    readiness:
-        initialDelay: 5
-        path: /internal/isReady
-    replicas:
-        min: {{ minReplicas }}
-    resources:
-        requests:
-            cpu: {{ requestedCpu }}
-            memory: 128Mi
+  # prettier-ignore
+  image: {{ image }}
+  port: 3000
+  ingresses:
+    - {{ ingress }}
+  liveness:
+    initialDelay: 5
+    path: /internal/isAlive
+  readiness:
+    initialDelay: 5
+    path: /internal/isReady
+  replicas:
+    min: {{ minReplicas }}
+  resources:
+    requests:
+      cpu: {{ requestedCpu }}
+      memory: 128Mi
+  observability:
+    logging:
+      destinations:
+        - id: loki
+        - id: elastic
+      enabled: true
