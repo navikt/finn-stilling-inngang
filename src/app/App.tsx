@@ -23,7 +23,7 @@ const App = ({ fnr }: Props) => {
                     </Heading>
 
                     <BodyLong spacing>
-                        Vi har flere stillinger fra arbeidsgivere som ønsker å ansette folk fra NAV.
+                        Vi har flere stillinger fra arbeidsgivere som ønsker å ansette folk fra Nav.
                         Kanskje passer noen til folkene du veileder?
                     </BodyLong>
 
@@ -41,9 +41,9 @@ const App = ({ fnr }: Props) => {
 
 function hentLenkeTilFinnStilling(fnr: string) {
     if (window.location.href.includes('dev.nav.no')) {
-        return `https://rekrutteringsbistand-frontend.intern.dev.nav.no/personbruker`;
+        return `https://rekrutteringsbistand.intern.dev.nav.no/personbruker`;
     } else {
-        return `https://rekrutteringsbistand-frontend.intern.nav.no/personbruker`;
+        return `https://rekrutteringsbistand.intern.nav.no/personbruker`;
     }
 }
 
