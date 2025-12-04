@@ -1,0 +1,23 @@
+name: Bygg og Deploy finn-stilling-inngang
+on:
+    push:
+    workflow_dispatch: # Legger til mulighet for manuell kjøring
+
+jobs:
+    build-and-deploy:
+        name: Next
+        uses: navikt/toi-github-actions-workflows/.github/workflows/build-and-deploy-nextjs.yaml@v4
+        with:
+            pnpm: true
+            storybook: false
+            playwright: false
+            playwright-github-report: false
+            dev-vars-path: '.nais/dev-gcp.json'
+            prod-vars-path: '.nais/prod-gcp.json'
+            deploy-to-dev-if-branch-name-is: 'oppdater'
+        secrets: inherit
+        permissions:
+            contents: write
+            id-token: write
+            security-events: write
+            pages: write

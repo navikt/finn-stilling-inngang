@@ -1,13 +1,13 @@
 apiVersion: nais.io/v1alpha1
 kind: 'Application'
 metadata:
-  name: finn-stilling-inngang
-  namespace: toi
-  labels:
-    team: toi
+    name: finn-stilling-inngang
+    namespace: toi
+    labels:
+        team: toi
 spec:
-  # prettier-ignore
-  image: {{ image }}
+    # prettier-ignore
+    image: {{ image }}
   port: 3000
   ingresses:
     - {{ ingress }}
