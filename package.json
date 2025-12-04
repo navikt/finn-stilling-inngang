@@ -1,45 +1,45 @@
 {
-    "name": "finn-stilling-inngang",
-    "version": "1.0.0",
-    "private": true,
-    "scripts": {
-        "prepare": "husky install",
-        "start": "vite",
-        "build": "cross-env VITE_EXPORT=true vite build",
-        "preview": "vite preview"
-    },
-    "dependencies": {
-        "@navikt/aksel-icons": "^7.35.0",
-        "@navikt/ds-css": "^7.35.0",
-        "@navikt/ds-react": "^7.35.0",
-        "@navikt/navspa": "^7.1.0",
-        "@vitejs/plugin-react": "^5.1.1",
-        "react": "^19.2.1",
-        "react-dom": "^19.2.1",
-        "vite": "^7.2.6",
-        "vite-plugin-svgr": "^4.5.0"
-    },
-    "devDependencies": {
-        "@types/react": "^19.2.7",
-        "@types/react-dom": "^19.2.3",
-        "cross-env": "^10.1.0",
-        "eslint-config-prettier": "^10.1.8",
-        "husky": "^9.1.7",
-        "prettier": "^3.7.4",
-        "pretty-quick": "^4.2.2",
-        "typescript": "^5.9.3"
-    },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "prettier"
-        ]
-    },
-    "prettier": {
-        "tabWidth": 4,
-        "trailingComma": "es5",
-        "jsxSingleQuote": true,
-        "singleQuote": true,
-        "printWidth": 100
-    }
+  "name": "finn-stilling-inngang",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "prepare": "husky",
+    "start": "vite",
+    "build": "cross-env VITE_EXPORT=true vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@navikt/aksel-icons": "^7.35.0",
+    "@navikt/ds-css": "^7.35.0",
+    "@navikt/ds-react": "^7.35.0",
+    "@navikt/navspa": "^7.1.0",
+    "@vitejs/plugin-react": "^5.1.1",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
+    "vite": "^7.2.6",
+    "vite-plugin-svgr": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "cross-env": "^10.1.0",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "prettier": "^3.7.4",
+    "pretty-quick": "^4.2.2",
+    "typescript": "^5.9.3"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "prettier"
+    ]
+  },
+  "prettier": {
+    "tabWidth": 4,
+    "trailingComma": "es5",
+    "jsxSingleQuote": true,
+    "singleQuote": true,
+    "printWidth": 100
+  }
 }
