@@ -1,23 +1,65 @@
 name: Bygg og Deploy finn-stilling-inngang
 on:
     push:
-    workflow_dispatch: # Legger til mulighet for manuell kjøring
+    workflow_dispatch:
+
+permissions:
+    packages: write
+    contents: read
+    id-token: write
 
 jobs:
     build-and-deploy:
-        name: Next
-        uses: navikt/toi-github-actions-workflows/.github/workflows/build-and-deploy-nextjs.yaml@v4
-        with:
-            pnpm: true
-            storybook: false
-            playwright: false
-            playwright-github-report: false
-            dev-vars-path: '.nais/dev-gcp.json'
-            prod-vars-path: '.nais/prod-gcp.json'
-            deploy-to-dev-if-branch-name-is: 'oppdater'
-        secrets: inherit
-        permissions:
-            contents: write
-            id-token: write
-            security-events: write
-            pages: write
+        name: Bygg og push
+        runs-on: ubuntu-latest
+        outputs:
+            image: ${{ steps.docker-build-push.outputs.image }}
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: 'pnpm'
+            - uses: pnpm/action-setup@v4
+              with:
+                  version: 9
+            - name: Installer avhengigheter
+              run: pnpm install --frozen-lockfile
+            - name: Bygg applikasjon
+              run: pnpm run build
+            - name: Installer server avhengigheter
+              run: cd server && pnpm install --frozen-lockfile --prod
+            - name: Push docker image to GAR
+              uses: nais/docker-build-push@v0
+              id: docker-build-push
+              with:
+                  team: toi
+                  tag: ${{ github.ref == 'refs/heads/main' && 'latest' || github.sha }}
+
+    deploy-til-dev:
+        name: Deploy til dev-gcp
+        needs: build-and-deploy
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/oppdater'
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: nais/deploy/actions/deploy@v2
+              env:
+                  CLUSTER: dev-gcp
+                  RESOURCE: .nais/app.yaml
+                  VARS: .nais/dev-gcp.json
+                  VAR: image=${{ needs.build-and-deploy.outputs.image }}
+
+    deploy-til-prod:
+        name: Deploy til prod-gcp
+        needs: build-and-deploy
+        if: github.ref == 'refs/heads/main'
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: nais/deploy/actions/deploy@v2
+              env:
+                  CLUSTER: prod-gcp
+                  RESOURCE: .nais/app.yaml
+                  VARS: .nais/prod-gcp.json
+                  VAR: image=${{ needs.build-and-deploy.outputs.image }}

@@ -1,11 +1,13 @@
 FROM gcr.io/distroless/nodejs24-debian12
 
-WORKDIR /var
+WORKDIR /app
 
 COPY dist/ dist/
-COPY server/ server/
+COPY server/server.mjs server/
+COPY server/package.json server/
+COPY server/node_modules/ server/node_modules/
 
-WORKDIR /var/server
+WORKDIR /app/server
 
 EXPOSE 3000
 CMD ["server.mjs"]
