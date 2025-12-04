@@ -1,7 +1,7 @@
-import { fileURLToPath } from 'url';
-import path from 'path';
-import express from 'express';
 import compression from 'compression';
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const port = 3000;
 

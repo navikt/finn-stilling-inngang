@@ -3,9 +3,7 @@ FROM gcr.io/distroless/nodejs24-debian12
 WORKDIR /app
 
 COPY dist/ dist/
-COPY server/server.mjs server/
-COPY server/package.json server/
-COPY server/node_modules/ server/node_modules/
+COPY server/ server/
 
 WORKDIR /app/server
 
