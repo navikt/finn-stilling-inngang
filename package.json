@@ -2,7 +2,6 @@
     "name": "finn-stilling-inngang",
     "version": "1.0.0",
     "private": true,
-    "packageManager": "pnpm@9.15.0",
     "scripts": {
         "prepare": "husky install",
         "start": "vite",
