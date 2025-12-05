@@ -30,6 +30,7 @@ const startServer = () => {
     app.use(configureCors);
 
     app.use('/assets', express.static(`${buildPath}/assets`, cacheForever));
+    app.use('/navspa-bundle/assets', express.static(`${buildPath}/assets`, cacheForever));
 
     app.get('/asset-manifest.json', (_, res) => {
         res.sendFile(path.join(buildPath, 'asset-manifest.json'));
