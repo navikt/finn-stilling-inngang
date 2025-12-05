@@ -1,7 +1,7 @@
-import { fileURLToPath } from 'url';
-import path from 'path';
-import express from 'express';
 import compression from 'compression';
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const port = 3000;
 
@@ -27,10 +27,14 @@ const configureCors = (req, res, next) => {
 
 const startServer = () => {
     app.use(compression());
-    app.use('/*', configureCors);
+    app.use(configureCors);
 
     app.use('/assets', express.static(`${buildPath}/assets`, cacheForever));
-    app.use('/asset-manifest.json', express.static(`${buildPath}/asset-manifest.json`));
+    app.use('/navspa-bundle/assets', express.static(`${buildPath}/assets`, cacheForever));
+
+    app.get('/asset-manifest.json', (_, res) => {
+        res.sendFile(path.join(buildPath, 'asset-manifest.json'));
+    });
 
     app.get('/internal/isAlive', (_, res) => res.sendStatus(200));
     app.get('/internal/isReady', (_, res) => res.sendStatus(200));

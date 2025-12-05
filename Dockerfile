@@ -1,11 +1,11 @@
-FROM gcr.io/distroless/nodejs20-debian12
+FROM gcr.io/distroless/nodejs24-debian12
 
-WORKDIR /var
+WORKDIR /app
 
 COPY dist/ dist/
 COPY server/ server/
 
-WORKDIR /var/server
+WORKDIR /app/server
 
 EXPOSE 3000
 CMD ["server.mjs"]

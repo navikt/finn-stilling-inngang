@@ -1,6 +1,7 @@
-name: Bygg og deploy
-
-on: [push]
+name: Bygg og Deploy finn-stilling-inngang
+on:
+    push:
+    workflow_dispatch:
 
 permissions:
     packages: write
@@ -8,25 +9,29 @@ permissions:
     id-token: write
 
 jobs:
-    bygg-og-push-docker-image:
+    build-and-deploy:
         name: Bygg og push
         runs-on: ubuntu-latest
         outputs:
             image: ${{ steps.docker-build-push.outputs.image }}
         steps:
             - uses: actions/checkout@v4
+            - uses: pnpm/action-setup@v4
+              with:
+                  version: 9
             - uses: actions/setup-node@v4
               with:
                   node-version: 20
+                  cache: 'pnpm'
                   registry-url: 'https://npm.pkg.github.com'
             - name: Installer avhengigheter
-              run: npm ci
+              run: pnpm install --frozen-lockfile
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
             - name: Bygg applikasjon
-              run: npm run build
-            - name: Installer avhengigheter for server
-              run: cd server && npm ci
+              run: pnpm run build
+            - name: Installer server avhengigheter
+              run: cd server && pnpm install --frozen-lockfile --prod
             - name: Push docker image to GAR
               uses: nais/docker-build-push@v0
               id: docker-build-push
@@ -36,38 +41,28 @@ jobs:
 
     deploy-til-dev:
         name: Deploy til dev-gcp
-        needs: bygg-og-push-docker-image
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/endre_url'
+        needs: build-and-deploy
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/oppdater'
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - uses: nais/deploy/actions/deploy@v2
               env:
                   CLUSTER: dev-gcp
-                  RESOURCE: deploy/nais.yaml
-                  VARS: deploy/dev-gcp.json
-                  VAR: image=${{ needs.bygg-og-push-docker-image.outputs.image }}
+                  RESOURCE: .nais/app.yaml
+                  VARS: .nais/dev-gcp.json
+                  VAR: image=${{ needs.build-and-deploy.outputs.image }}
 
-    deploy-to-prod:
+    deploy-til-prod:
         name: Deploy til prod-gcp
-        needs: [bygg-og-push-docker-image, deploy-til-dev]
+        needs: build-and-deploy
         if: github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
             - uses: nais/deploy/actions/deploy@v2
               env:
                   CLUSTER: prod-gcp
-                  RESOURCE: deploy/nais.yaml
-                  VARS: deploy/prod-gcp.json
-                  VAR: image=${{ needs.bygg-og-push-docker-image.outputs.image }}
-
-    call-trivy-security-scan:
-        needs: bygg-og-push-docker-image
-        uses: navikt/toi-github-actions-workflows/.github/workflows/trivy-security-scan.yaml@v1
-        with:
-            image: ${{ needs.bygg-og-push-docker-image.outputs.image }}
-        permissions:
-            id-token: write
-            security-events: write
-        secrets: inherit
+                  RESOURCE: .nais/app.yaml
+                  VARS: .nais/prod-gcp.json
+                  VAR: image=${{ needs.build-and-deploy.outputs.image }}

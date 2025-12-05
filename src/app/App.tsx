@@ -1,6 +1,4 @@
 import { BodyLong, Heading } from '@navikt/ds-react';
-import { useEffect } from 'react';
-import { sendEvent } from '../amplitude';
 import Illustrasjon from '../illustrasjon/Illustrasjon';
 import LinkButton from '../link-button/LinkButton';
 import css from './App.module.css';
@@ -10,10 +8,6 @@ type Props = {
 };
 
 const App = ({ fnr }: Props) => {
-    useEffect(() => {
-        sendEvent('aktivitetsplan-finn_stilling_fane-vis');
-    }, []);
-
     return (
         <div className={css.app}>
             <div className={css.boks}>
