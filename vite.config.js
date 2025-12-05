@@ -15,9 +15,11 @@ export default defineConfig(() => {
                     const manifestPath = path.resolve(options.dir, 'asset-manifest.json');
                     if (fs.existsSync(manifestPath)) {
                         const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
-                        // Behold kun index.html entry
+                        // Behold kun index.html entry og fjern assets felt
+                        const indexEntry = { ...manifest['index.html'] };
+                        delete indexEntry.assets;
                         const filtered = {
-                            'index.html': manifest['index.html'],
+                            'index.html': indexEntry,
                         };
                         fs.writeFileSync(manifestPath, JSON.stringify(filtered, null, 2));
                     }
