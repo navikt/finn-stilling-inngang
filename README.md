@@ -8,6 +8,9 @@ Inngang fra Modia Arbeidsrettet Oppfølging (ARBOP) til «Finn stilling» i Rekr
 npm run start
 ```
 
+## Kode generert av GitHub Copilot
+Dette repoet bruker GitHub Copilot til å generere kode.
+
 # Henvendelser
 
 ## For Nav-ansatte
