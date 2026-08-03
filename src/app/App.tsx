@@ -1,7 +1,7 @@
-import { BodyLong, Heading } from '@navikt/ds-react';
+import { BodyLong, Box, Button, Heading } from '@navikt/ds-react';
 import Illustrasjon from '../illustrasjon/Illustrasjon';
-import LinkButton from '../link-button/LinkButton';
 import css from './App.module.css';
+import { ExternalLinkIcon } from '@navikt/aksel-icons';
 
 type Props = {
     fnr: string;
@@ -10,7 +10,7 @@ type Props = {
 const App = ({ fnr }: Props) => {
     return (
         <div className={css.app}>
-            <div className={css.boks}>
+            <Box className={css.boks}>
                 <article className={css.artikkel}>
                     <Heading spacing level='2' size='large'>
                         Finn stillinger til brukeren din
@@ -20,15 +20,18 @@ const App = ({ fnr }: Props) => {
                         Vi har flere stillinger fra arbeidsgivere som ønsker å ansette folk fra Nav.
                         Kanskje passer noen til folkene du veileder?
                     </BodyLong>
-
-                    <div>
-                        <LinkButton href={hentLenkeTilFinnStilling(fnr)}>Se stillingene</LinkButton>
-                    </div>
-                    <div>
-                        <Illustrasjon />
-                    </div>
+                    <Button
+                        as='a'
+                        href={hentLenkeTilFinnStilling(fnr)}
+                        icon={<ExternalLinkIcon />}
+                        iconPosition={'right'}
+                        target='_blank'
+                    >
+                        Se stillingene
+                    </Button>
+                    <Illustrasjon />
                 </article>
-            </div>
+            </Box>
         </div>
     );
 };
