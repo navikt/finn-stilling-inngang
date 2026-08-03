@@ -25,6 +25,7 @@ const App = ({ fnr }: Props) => {
                         href={hentLenkeTilFinnStilling(fnr)}
                         icon={<ExternalLinkIcon />}
                         iconPosition={'right'}
+                        target='_blank'
                     >
                         Se stillingene
                     </Button>
