@@ -29,7 +29,7 @@ jobs:
             - name: Bygg applikasjon
               run: pnpm run build
             - name: Installer server avhengigheter
-              run: pnpm --dir server install --frozen-lockfile --prod --ignore-workspace
+              run: cd server && pnpm install --frozen-lockfile --prod
             - name: Push docker image to GAR
               uses: nais/docker-build-push@v0
               id: docker-build-push
