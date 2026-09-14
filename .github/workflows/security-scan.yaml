@@ -9,4 +9,3 @@ jobs:
         permissions:
             id-token: write
             security-events: write
-        secrets: inherit
