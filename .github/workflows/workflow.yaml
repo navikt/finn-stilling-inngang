@@ -3,22 +3,20 @@ on:
     push:
     workflow_dispatch:
 
-permissions:
-    packages: write
-    contents: read
-    id-token: write
-
 jobs:
     build-and-deploy:
         name: Bygg og push
         runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            id-token: write
         outputs:
             image: ${{ steps.docker-build-push.outputs.image }}
         steps:
             - uses: actions/checkout@v4
             - uses: pnpm/action-setup@v4
               with:
-                  version: 9
+                  version: 12.4.1
             - uses: actions/setup-node@v4
               with:
                   node-version: 20
@@ -42,8 +40,11 @@ jobs:
     deploy-til-dev:
         name: Deploy til dev-gcp
         needs: build-and-deploy
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/oppdater-aksel'
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/supply-chain-finish'
         runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            id-token: write
         steps:
             - uses: actions/checkout@v4
             - uses: nais/deploy/actions/deploy@v2
@@ -58,6 +59,9 @@ jobs:
         needs: build-and-deploy
         if: github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            id-token: write
         steps:
             - uses: actions/checkout@v4
             - uses: nais/deploy/actions/deploy@v2
