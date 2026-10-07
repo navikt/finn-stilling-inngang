@@ -12,6 +12,7 @@ jobs:
             id-token: write
         outputs:
             image: ${{ steps.docker-build-push.outputs.image }}
+            baseimage-digest: ${{ steps.baseimage.outputs.digest }}
         steps:
             - uses: actions/checkout@v4
             - uses: pnpm/action-setup@v4
@@ -29,12 +30,25 @@ jobs:
             - name: Bygg applikasjon
               run: pnpm run build
             - name: Installer server avhengigheter
-              run: cd server && pnpm install --frozen-lockfile --prod
+              run: 'cd server && pnpm install --frozen-lockfile --prod'
+            - name: Authenticate to GAR
+              uses: nais/login@v0
+              with:
+                  team: toi
+            - name: Lock base image to digest
+              id: baseimage
+              env:
+                  BASEIMAGE: europe-north1-docker.pkg.dev/cgr-nav/pull-through/nav.no/node:24
+              run: |
+                  digest=$(docker buildx imagetools inspect "$BASEIMAGE" --format '{{json .Manifest}}' | jq -r '.digest')
+                  [[ "$digest" == sha256:* ]]
+                  echo "digest=$digest" >> "$GITHUB_OUTPUT"
             - name: Push docker image to GAR
               uses: nais/docker-build-push@v0
               id: docker-build-push
               with:
                   team: toi
+                  build_args: BASEIMAGE=europe-north1-docker.pkg.dev/cgr-nav/pull-through/nav.no/node:24@${{ steps.baseimage.outputs.digest }}
                   tag: ${{ github.ref == 'refs/heads/main' && 'latest' || github.sha }}
 
     deploy-til-dev:
@@ -70,3 +84,12 @@ jobs:
                   RESOURCE: .nais/app.yaml
                   VARS: .nais/prod-gcp.json
                   VAR: image=${{ needs.build-and-deploy.outputs.image }}
+
+    lagre-baseimage-digest:
+        name: Lagre base-image digest
+        needs: [build-and-deploy, deploy-til-prod]
+        if: ${{ !cancelled() && needs.deploy-til-prod.result == 'success' && needs.build-and-deploy.outputs.baseimage-digest != '' }}
+        uses: navikt/toi-frontend-workflows/.github/workflows/lagre-digest.yaml@v3.2
+        with:
+            image: europe-north1-docker.pkg.dev/cgr-nav/pull-through/nav.no/node:24
+            digest: ${{ needs.build-and-deploy.outputs.baseimage-digest }}
