@@ -24,6 +24,9 @@ spec:
             cpu: {{ requestedCpu }}
             memory: 128Mi
     observability:
+        autoInstrumentation:
+            enabled: true
+            runtime: nodejs
         logging:
             destinations:
                 - id: loki
